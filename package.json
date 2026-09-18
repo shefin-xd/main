@@ -1,0 +1,1 @@
+{"name":"shefin-portfolio","private":true,"workspaces":["apps/*"],"scripts":{"dev:web":"npm run dev --workspace=@shefin/web","dev:api":"npm run dev --workspace=@shefin/api","build":"npm run build --workspace=@shefin/web","start":"npm run start --workspace=@shefin/api"}}

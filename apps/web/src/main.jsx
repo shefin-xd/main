@@ -1,0 +1,2 @@
+import React from 'react'; import { createRoot } from 'react-dom/client'; import { AdminPage } from './pages/AdminPage.jsx'; import { HomePage } from './pages/HomePage.jsx'; import { PublicFormPage } from './pages/PublicFormPage.jsx'; import './styles/global.css';
+const path = window.location.pathname; const page = path.startsWith('/f/') ? <PublicFormPage slug={path.split('/')[2]} /> : path.startsWith('/admin') ? <AdminPage /> : <HomePage />; createRoot(document.getElementById('root')).render(<React.StrictMode>{page}</React.StrictMode>);

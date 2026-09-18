@@ -1,0 +1,2 @@
+import { ArrowUpRight, Menu, X } from 'lucide-react'; import { useState } from 'react';
+export function SiteHeader() { const [open, setOpen] = useState(false); return <header><a className="brand" href="/">SF<span>.</span></a><button className="menu" aria-label="Toggle menu" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button><nav className={open ? 'open' : ''}><a href="#work">Work</a><a href="#about">About</a><a href="mailto:hello@shefin.dev" className="pill">Get in touch <ArrowUpRight size={15} /></a></nav></header>; }
