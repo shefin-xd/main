@@ -38,7 +38,7 @@ Open `http://localhost:5173`, `http://localhost:5173/admin`, or `http://localhos
 1. Add MongoDB Atlas URI and a 32+ byte random `JWT_SECRET` to the API project.
 2. Set `CLIENT_ORIGINS` to all three production hosts. Use HTTPS-only custom domains.
 3. Set `ADMIN_EMAIL` and a 12+ character `ADMIN_PASSWORD` before the first API start. The API creates (or safely promotes) that account as the initial administrator; do not expose these values in the browser.
-4. Set `VITE_API_URL=https://api.shefin.dev/api` on the web project, then deploy API and web independently in Vercel.
+4. Set `VITE_API_URL=https://api.shefin.dev/api` on the web project, then deploy API and web independently in Vercel. The API deployment uses `api/[...path].js`, so do not add a catch-all rewrite to `index.js`; that would turn `/api/auth/login` into `/index.js`.
 5. In each Google Form integration, copy its `formResponse` URL and the numeric `entry.<id>` identifiers into the admin form configuration. The API forwards public submissions server-side, so visitors do not need a Google account or login.
 
 ## Security architecture

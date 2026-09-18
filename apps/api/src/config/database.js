@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import { env } from './env.js';
 import User from '../models/User.js';
 
+let connectionPromise;
+
 async function provisionInitialAdmin() {
   if (!env.adminEmail || !env.adminPassword) return;
   if (env.adminPassword.length < 12) throw new Error('ADMIN_PASSWORD must be at least 12 characters.');
@@ -15,9 +17,12 @@ async function provisionInitialAdmin() {
   console.info(`Initial admin provisioned for ${env.adminEmail}`);
 }
 
-export async function connectDatabase() {
-  if (!env.mongoUri) throw new Error('MONGODB_URI must be configured.');
-  await mongoose.connect(env.mongoUri);
-  await provisionInitialAdmin();
-  console.info('MongoDB connected');
+export function connectDatabase() {
+  if (!env.mongoUri) return Promise.reject(new Error('MONGODB_URI must be configured.'));
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(env.mongoUri)
+      .then(async () => { await provisionInitialAdmin(); console.info('MongoDB connected'); })
+      .catch((error) => { connectionPromise = undefined; throw error; });
+  }
+  return connectionPromise;
 }
