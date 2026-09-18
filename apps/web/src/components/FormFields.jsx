@@ -1,0 +1,1 @@
+export function FormFields({ fields, values, onChange }) { return fields.map((field) => <label key={field.name}>{field.label}<input name={field.name} required={field.required} onChange={(event) => onChange({ ...values, [field.name]: event.target.value })} /></label>); }

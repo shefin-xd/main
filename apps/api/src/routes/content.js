@@ -1,0 +1,2 @@
+import { Router } from 'express'; import { getProfile, updateProfile } from '../controllers/contentController.js'; import { authenticate, adminOnly } from '../middleware/auth.js'; import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router(); router.get('/profile', asyncHandler(getProfile)); router.put('/profile', authenticate, adminOnly, asyncHandler(updateProfile)); export default router;

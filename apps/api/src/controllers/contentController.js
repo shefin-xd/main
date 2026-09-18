@@ -1,0 +1,4 @@
+import Content from '../models/Content.js'; import { profileSchema } from '../validators/contentValidator.js';
+const defaultProfile = { name: 'Shefin Franklin', headline: 'First-year B.Tech Computer Science student at CET Trivandrum.', availability: 'Open to internships and meaningful collaborations.', links: { linkedin: 'https://www.linkedin.com/in/shefin-franklin', github: 'https://github.com/shefin-franklin' }, projects: [{ title: 'Building in public', description: 'A focused space for work, experiments and things I am learning.', tag: '2026' }] };
+export async function getProfile(req, res) { const document = await Content.findOne({ key: 'profile' }); res.json(document?.value || defaultProfile); }
+export async function updateProfile(req, res) { const value = profileSchema.parse(req.body); await Content.findOneAndUpdate({ key: 'profile' }, { value }, { upsert: true, new: true }); res.json(value); }

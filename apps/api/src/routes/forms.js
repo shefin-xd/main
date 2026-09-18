@@ -1,0 +1,2 @@
+import { Router } from 'express'; import { createForm, getForm, listForms, submitForm } from '../controllers/formController.js'; import { authenticate, adminOnly } from '../middleware/auth.js'; import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router(); router.get('/', authenticate, adminOnly, asyncHandler(listForms)); router.post('/', authenticate, adminOnly, asyncHandler(createForm)); router.get('/:slug', asyncHandler(getForm)); router.post('/:slug/submit', asyncHandler(submitForm)); export default router;
